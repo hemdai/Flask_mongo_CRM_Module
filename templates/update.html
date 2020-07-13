@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+          <title>{{t}}</title>
+      </head>
+      <style>
+          h1{
+              font-family:"Arial Black", Gadget, sans-serif;
+          }
+          body{
+              background-color:white;
+          }
+      </style>
+  <body>
+      <h1>{{h}}</h1>
+      <hr>
+      <h3>Update tasks with a reference</h3>
+      <form action="/action3" method="POST">
+      {% for task in tasks %}
+          Unique Object ID : {{ task['_id'] }}<br/>
+      <input type="text" name="_id" value="{{ task['_id'] }}" hidden>
+
+      <table class="table table-striped">
+      <tr>
+      <td>Task Name</td><td> : </td><td><input type="text" name="name" value="{{ task['name'] }}" placeholder="{{ task['name'] }}"></td>
+      </tr>
+      <tr>
+      <td>Description</td><td> : </td><td><textarea type="text" name="desc" rows=3 cols=30 placeholder="{{ task['desc'] }}"> {{ task['desc'] }} </textarea></td>
+      </tr>
+      <tr>
+      <td>Date</td><td> : </td><td><input type="text" name="date" value="{{ task['date'] }}" placeholder="{{ task['date'] }}"></td>
+      </tr>
+
+      <td><select name= "pr" method="GET" action="/">
+      {% for value1 in priority %}
+      <option value= "{{ value1 }}" SELECTED>{{ value1 }}</option>"
+      {% endfor %}
+      </select>
+      </td>
+
+
+      <tr><select name= status method="GET" action="/" placeholder="{{ task['status'] }}">
+        {% for value1 in status %}
+        <option value= "{{ value1 }}" SELECTED>{{ value1 }}</option>"
+        {% endfor %}
+        </select>
+      </tr>
+      </table>
+      {% endfor %}
+          <button class="btn btn-drk" type="submit"> Update Task </button>
+          <br/>
+      </form>
+      <a href="/">Return to TaskList</a>
+      </body>
+</html>
